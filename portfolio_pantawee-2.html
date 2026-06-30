@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>พันธวีร์ ธรรมคุณ — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-mid: #7F77DD;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --gray-bg: #0D0C1A;
+    --gray-surface: #141328;
+    --gray-card: #1C1A35;
+    --gray-border: rgba(127,119,221,0.2);
+    --text-primary: #F0EEFF;
+    --text-secondary: #A09CC8;
+    --text-muted: #6B6898;
+    --accent: #7F77DD;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', 'IBM Plex Sans Thai', sans-serif;
+    background: var(--gray-bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,12,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem; height: 60px;
+  }
+  .nav-logo {
+    font-size: 15px; font-weight: 700; color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-secondary); font-size: 13px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 100px 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: 0.06;
+    background-image:
+      linear-gradient(var(--accent) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-glow {
+    position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(127,119,221,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; text-align: center; max-width: 700px;
+  }
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid var(--gray-border);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; color: var(--accent); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 2rem;
+    background: rgba(83,74,183,0.1);
+  }
+  .hero-name {
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 700; line-height: 1.1;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-en {
+    font-size: 1rem; color: var(--text-secondary);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-desc {
+    font-size: 1rem; color: var(--text-secondary); line-height: 1.8;
+    max-width: 520px; margin: 0 auto 2.5rem;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    text-decoration: none; cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+  }
+  .btn-primary:hover { background: var(--purple); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text-primary);
+    border: 1px solid var(--gray-border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700; color: var(--text-primary);
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-divider {
+    width: 48px; height: 2px; background: var(--accent);
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+  }
+  .about-info p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; }
+  .info-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+  .info-table td { padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--gray-border); }
+  .info-table td:first-child { color: var(--text-muted); width: 40%; }
+  .info-table td:last-child { color: var(--text-primary); font-weight: 500; }
+
+  .contact-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
+  .contact-card {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--gray-card); border: 1px solid var(--gray-border);
+    border-radius: 10px; padding: 12px 16px;
+  }
+  .contact-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(83,74,183,0.15); display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .contact-text { font-size: 13px; color: var(--text-secondary); }
+  .contact-val { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;
+  }
+  .skill-card {
+    background: var(--gray-card); border: 1px solid var(--gray-border);
+    border-radius: 12px; padding: 1.5rem 1rem;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+  }
+  .skill-name { font-size: 13px; font-weight: 500; color: var(--text-secondary); text-align: center; }
+
+  .soft-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2rem; }
+  .tag {
+    padding: 6px 14px; border-radius: 100px; font-size: 13px;
+    background: rgba(83,74,183,0.12); border: 1px solid rgba(127,119,221,0.25);
+    color: var(--accent);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .project-card {
+    background: var(--gray-card); border: 1px solid var(--gray-border);
+    border-radius: 14px; padding: 1.75rem;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .project-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--teal); background: rgba(29,158,117,0.1);
+    border: 1px solid rgba(29,158,117,0.25);
+    padding: 4px 10px; border-radius: 100px;
+    width: fit-content;
+  }
+  .project-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
+  .project-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; flex: 1; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech-pill {
+    font-size: 11px; padding: 3px 10px; border-radius: 100px;
+    background: rgba(127,119,221,0.1); border: 1px solid rgba(127,119,221,0.2);
+    color: var(--accent);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 3rem 2rem;
+    border-top: 1px solid var(--gray-border);
+    color: var(--text-muted); font-size: 13px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">PT.</span>
+  <ul class="nav-links">
+    <li><a href="#about">ประวัติ</a></li>
+    <li><a href="#skills">ทักษะ</a></li>
+    <li><a href="#projects">ผลงาน</a></li>
+    <li><a href="#contact">ติดต่อ</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">🎓 DII · Chiang Mai University</div>
+    <h1 class="hero-name">พันธวีร์<br><span>ธรรมคุณ</span></h1>
+    <p class="hero-en">Pantawee Thammakhun</p>
+    <p class="hero-desc">นักศึกษาบูรณาการอุตสาหกรรมดิจิทัล มุ่งพัฒนาตัวเองด้านเทคโนโลยี สารสนเทศ และการสร้างระบบที่เป็นประโยชน์ต่อสังคม</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">ดูผลงาน →</a>
+      <a href="#contact" class="btn btn-outline">ติดต่อฉัน</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">เกี่ยวกับฉัน</p>
+    <h2 class="section-title">ประวัติส่วนตัว</h2>
+    <div class="section-divider"></div>
+
+    <div class="about-grid">
+      <div class="about-info">
+        <p>ชื่อเล่น "เซฟ" ปัจจุบันกำลังศึกษาอยู่ที่มหาวิทยาลัยเชียงใหม่ คณะวิทยาลัยสื่อ ศิลปะ และเทคโนโลยี สาขาบูรณาการอุตสาหกรรมดิจิทัล (DII) มีความสนใจในการพัฒนาระบบ และการนำเทคโนโลยีมาแก้ปัญหาให้กับชุมชนและองค์กร</p>
+        <p style="font-style: italic; color: var(--accent); border-left: 2px solid var(--accent); padding-left: 1rem; margin-top: 1.5rem;">"ฝันให้ไกล ละไปให้ถึง อย่าท้อถ้ายังไม่ได้เริ่มทำ"</p>
+        <table class="info-table">
+          <tr><td>วันเกิด</td><td>29 สิงหาคม 2549</td></tr>
+          <tr><td>อายุ</td><td>19 ปี</td></tr>
+          <tr><td>เพศ</td><td>ชาย</td></tr>
+          <tr><td>สัญชาติ</td><td>ไทย</td></tr>
+          <tr><td>ที่อยู่</td><td>161/4 ถ.บ้านดงพัฒนา ต.บ่อแฮ้ว อ.เมือง จ.ลำปาง 52100</td></tr>
+          <tr><td>มหาวิทยาลัย</td><td>ม.เชียงใหม่ (CMU)</td></tr>
+          <tr><td>สาขา</td><td>บูรณาการอุตสาหกรรมดิจิทัล (DII)</td></tr>
+        </table>
+      </div>
+
+      <div>
+        <p class="section-label" style="margin-bottom: 1rem;">ช่องทางติดต่อ</p>
+        <div class="contact-cards" id="contact">
+          <div class="contact-card">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-text">โทรศัพท์</div>
+              <div class="contact-val">089-435-9923</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <div class="contact-text">อีเมล</div>
+              <div class="contact-val">safe23177@gmail.com</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="section-label" style="margin-top: 2rem; margin-bottom: 1rem;">งานอดิเรก</p>
+        <div class="soft-skills">
+          <span class="tag">🎵 เล่นดนตรี</span>
+          <span class="tag">🎤 แต่งเพลง / แร็ป</span>
+          <span class="tag">🎮 อีสปอร์ต</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background: rgba(28,26,53,0.5);">
+  <div class="container">
+    <p class="section-label">ความสามารถ</p>
+    <h2 class="section-title">สกิลการทำงาน</h2>
+    <div class="section-divider"></div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon" style="background: rgba(232,89,12,0.15);">☕</div>
+        <div class="skill-name">Java</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background: rgba(227,76,38,0.15);">🌐</div>
+        <div class="skill-name">HTML</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background: rgba(38,77,228,0.15);">🎨</div>
+        <div class="skill-name">CSS</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background: rgba(162,89,255,0.15);">🖌️</div>
+        <div class="skill-name">Figma</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background: rgba(40,134,218,0.15);">📄</div>
+        <div class="skill-name">Microsoft Word</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon" style="background: rgba(33,115,70,0.15);">📊</div>
+        <div class="skill-name">Microsoft Excel</div>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-top: 3rem; margin-bottom: 1rem;">ทักษะการทำงาน (Soft Skills)</p>
+    <div class="soft-skills">
+      <span class="tag">💡 มีความคิดสร้างสรรค์</span>
+      <span class="tag">🧠 มีหลักการคิดวิเคราะห์</span>
+      <span class="tag">💪 ทนแรงกดดันได้</span>
+      <span class="tag">🤝 ทำงานเป็นทีมได้</span>
+      <span class="tag">⏳ มีความอดทน</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">กิจกรรมและผลงาน</p>
+    <h2 class="section-title">โปรเจกต์ที่ทำ</h2>
+    <div class="section-divider"></div>
+
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-badge">🏙️ ร่วมกับเทศบาลนครลำปาง</span>
+        <h3 class="project-title">Kad Kong Ta Smart Insight</h3>
+        <p class="project-desc">Dashboard แสดงจำนวนคนที่เดินในกาดกองต้าแบบ real-time และในอดีต ในรูปแบบกราฟเพื่อนำไปประกอบการวิเคราะห์ ร่วมมือกับเทศบาลนครลำปาง</p>
+        <div class="project-tech">
+          <span class="tech-pill">Website</span>
+          <span class="tech-pill">Dashboard</span>
+          <span class="tech-pill">Data Visualization</span>
+          <span class="tech-pill">CCTV Integration</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-badge">🎮 Team Project</span>
+        <h3 class="project-title">RPG Game App</h3>
+        <p class="project-desc">เกม RPG ที่ผู้เล่นสร้างตัวละคร เก็บไอเทม และกำจัดมอนสเตอร์ พัฒนาด้วย IntelliJ ในภาษา Java ร่วมกับทีม</p>
+        <div class="project-tech">
+          <span class="tech-pill">Java</span>
+          <span class="tech-pill">IntelliJ</span>
+          <span class="tech-pill">OOP</span>
+          <span class="tech-pill">Team</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-badge">🏗️ ชุมชน</span>
+        <h3 class="project-title">เว็บแนะนำร้านวัสดุก่อสร้าง<br>ลำปางอิสระ</h3>
+        <p class="project-desc">เว็บไซต์แนะนำวัสดุก่อสร้างปูน ร้านลำปางอิสระ ให้เพื่อน มีปุ่มติดต่อสอบถามที่นำเข้าสู่ช่องทางสื่อสารของทางร้าน</p>
+        <div class="project-tech">
+          <span class="tech-pill">HTML</span>
+          <span class="tech-pill">CSS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-badge">🏠 ส่วนตัว</span>
+        <h3 class="project-title">PODD HOME — เว็บขายบ้าน</h3>
+        <p class="project-desc">เว็บไซต์ขายบ้าน poddhome สำหรับธุรกิจอสังหาริมทรัพย์ของครอบครัว ระบุราคาและประเภทบ้านได้ มีฟอร์มติดต่อ Line, โทรศัพท์ และอีเมล</p>
+        <div class="project-tech">
+          <span class="tech-pill">HTML</span>
+          <span class="tech-pill">CSS</span>
+          <span class="tech-pill">Real Estate</span>
+          <span class="tech-pill">Demo</span>
+        </div>
+        <a href="https://github.com/Safebabyz/HOME.git" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top: 4px; align-self: flex-start; padding: 8px 18px; font-size: 13px;">ดูโปรเจกต์ →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;">นายพันธวีร์ ธรรมคุณ</p>
+  <p>สาขาบูรณาการอุตสาหกรรมดิจิทัล (DII) · มหาวิทยาลัยเชียงใหม่</p>
+  <p style="margin-top: 0.5rem;">safe23177@gmail.com · 089-435-9923</p>
+</footer>
+
+</body>
+</html>
